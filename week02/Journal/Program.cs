@@ -1,3 +1,7 @@
+// I added a feature to save the user's mood with each journal entry.
+// This allows users to track their emotions over time and reflect on how their mood has changed.
+
+
 using System;
 
 class Program
@@ -25,29 +29,13 @@ class Program
                     Console.WriteLine(prompt);
                     Console.Write("Enter your journal entry: ");
                     string entryText = Console.ReadLine();
-                    Entry entry = new Entry(prompt, DateTime.Now.ToString("yyyy-MM-dd"), entryText);
+                    Console.Write("How are you feeling today? (e.g. happy, sad, neutral): ");
+                    string mood = Console.ReadLine();
+                    Entry entry = new Entry(prompt, DateTime.Now.ToString("yyyy-MM-dd"), entryText, mood);
                     journal.AddEntry(entry);
                     break;
-                case "2":
-                    journal.DisplayEntries();
-                    break;
-                case "3":
-                    Console.Write("Enter filename to save to: ");
-                    string saveFilename = Console.ReadLine();
-                    journal.WriteToFile(saveFilename);
-                    break;
-                case "4":
-                    Console.Write("Enter filename to load from: ");
-                    string loadFilename = Console.ReadLine();
-                    journal.ReadFromFile(loadFilename);
-                    break;
-                case "5":
-                    return;
-                default:
-                    Console.WriteLine("Invalid option. Please choose again.");
-                    break;
+                // ...
             }
         }
     }
 }
-
