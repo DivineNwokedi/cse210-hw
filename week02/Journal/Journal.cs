@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,6 +33,7 @@ public class Journal
             foreach (var entry in _entries)
             {
                 writer.WriteLine($"{entry._date} | {entry._prompt}");
+                writer.WriteLine($"Mood: {entry._mood}");
                 writer.WriteLine(entry._entryText);
                 writer.WriteLine();
             }
@@ -44,6 +46,7 @@ public class Journal
         string date = "";
         string prompt = "";
         string entryText = "";
+        string mood = "";
 
         foreach (var line in lines)
         {
@@ -53,13 +56,18 @@ public class Journal
                 date = parts[0];
                 prompt = parts[1];
             }
+            else if (line.StartsWith("Mood:"))
+            {
+                mood = line.Split(new string[] { ": " }, StringSplitOptions.None)[1];
+            }
             else if (line == "")
             {
                 if (!string.IsNullOrEmpty(entryText))
                 {
-                    Entry entry = new Entry(prompt, date, entryText);
+                    Entry entry = new Entry(prompt, date, entryText, mood);
                     AddEntry(entry);
                     entryText = "";
+                    mood = "";
                 }
             }
             else
@@ -71,10 +79,8 @@ public class Journal
         // Add the last entry
         if (!string.IsNullOrEmpty(entryText))
         {
-            Entry entry = new Entry(prompt, date, entryText.Trim());
+            Entry entry = new Entry(prompt, date, entryText.Trim(), mood);
             AddEntry(entry);
         }
     }
 }
-
-
