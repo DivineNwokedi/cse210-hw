@@ -30,4 +30,3 @@ public class Word
         return _isHidden;
     }
 }
-

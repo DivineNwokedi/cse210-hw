@@ -34,3 +34,4 @@ public class Scripture
         return _words.All(word => word.IsHidden());
     }
 }
+

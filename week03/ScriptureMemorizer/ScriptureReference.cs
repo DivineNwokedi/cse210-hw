@@ -1,6 +1,3 @@
-using System;
-using System.Text.RegularExpressions;
-
 public class ScriptureReference
 {
     private string _book;
@@ -35,4 +32,3 @@ public class ScriptureReference
         }
     }
 }
-
