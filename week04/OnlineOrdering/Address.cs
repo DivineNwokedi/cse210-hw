@@ -1,3 +1,4 @@
+
 public class Address
 {
     private string _streetAddress;
@@ -13,14 +14,8 @@ public class Address
         _country = country;
     }
 
-    public bool IsInUSA()
-    {
-        return _country.ToLower() == "usa";
-    }
+    public bool IsInUSA() => _country.ToLower() == "usa";
 
-    public string GetDisplayString()
-    {
-        return $"{_streetAddress}, {_city}, {_state}, {_country}";
-    }
+    public override string ToString() => $"{_streetAddress}, {_city}, {_state}, {_country}";
 }
 

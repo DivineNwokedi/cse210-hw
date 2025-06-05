@@ -1,4 +1,3 @@
-
 public class Customer
 {
     private string _name;
@@ -10,13 +9,7 @@ public class Customer
         _address = address;
     }
 
-    public bool IsInUSA()
-    {
-        return _address.IsInUSA();
-    }
+    public bool IsInUSA() => _address.IsInUSA();
 
-    public string GetDisplayString()
-    {
-        return $"Name: {_name}\nAddress: {_address.GetDisplayString()}";
-    }
+    public override string ToString() => $"Name: {_name}\nAddress: {_address}";
 }

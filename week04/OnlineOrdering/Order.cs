@@ -1,10 +1,11 @@
-using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class Order
 {
     private List<Product> _productList;
     private Customer _customer;
+    private int? _totalCost;
 
     public Order(List<Product> productList, Customer customer)
     {
@@ -14,44 +15,33 @@ public class Order
 
     public int CalculateOrderTotal()
     {
+        if (_totalCost.HasValue)
+            return _totalCost.Value;
+
         int total = 0;
-        foreach (Product product in _productList)
+        foreach (var product in _productList)
         {
             total += product.CalculateTotalCost();
         }
         total += GetOneTimeShippingCost();
+        _totalCost = total;
         return total;
     }
 
     public string GetPackingLabelString()
     {
-        string label = "";
-        foreach (Product product in _productList)
+        var labels = new StringBuilder();
+        foreach (var product in _productList)
         {
-   label += product.GetDisplayString() + "\n";
+            labels.AppendLine(product.ToString());
         }
-        return label;
+        return labels.ToString();
     }
 
-    public string GetShippingLabelString()
-    {
-        return _customer.GetDisplayString();
-    }
+    public string GetShippingLabelString() => _customer.ToString();
 
-    private int GetOneTimeShippingCost()
-    {
-        if (_customer.IsInUSA())
-        {
-            return 5;
-        }
-        else
-        {
-            return 35;
-        }
-    }
+    private int GetOneTimeShippingCost() => _customer.IsInUSA() ? 5 : 35;
 
-    public string GetDisplayString()
-    {
-        return $"Order Total: {CalculateOrderTotal()}\nPacking Label:\n{GetPackingLabelString()}\nShipping Label:\n{GetShippingLabelString()}";
-    }
+    public override string ToString() => $"Order Total: {CalculateOrderTotal()}\nPacking Label:\n{GetPackingLabelString()}\nShipping Label:\n{GetShippingLabelString()}";
 }
+

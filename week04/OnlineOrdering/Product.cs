@@ -13,13 +13,8 @@ public class Product
         _quantity = quantity;
     }
 
-    public int CalculateTotalCost()
-    {
-        return _price * _quantity;
-    }
+    public int CalculateTotalCost() => _price * _quantity;
 
-    public string GetDisplayString()
-    {
-        return $"Name: {_name}\nProduct ID: {_productId}\nPrice: {_price}\nQuantity: {_quantity}";
-    }
+    public override string ToString() => $"Name: {_name}\nProduct ID: {_productId}\nPrice: {_price}\nQuantity: {_quantity}";
 }
+
